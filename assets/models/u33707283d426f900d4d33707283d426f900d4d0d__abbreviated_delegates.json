@@ -1,0 +1,85 @@
+{
+  "dataset_id": "u33707283d426f900d4d33707283d426f900d4d0d__abbreviated_delegates",
+  "prefix": "http___example_org_datasets_u33707283d426f900d4d33707283d426f900d4d0d_abbreviated_delegates_rawData_0c9d2688_696f_4a80_8595_1eb8cc52410d_abbreviated_delegates_csv_",
+  "collection_prefix": "collections_",
+  "notion_prefix": "props_",
+  "entity": {
+    "name": "1List",
+    "collection": "1",
+    "title": "abbreviated_delegates",
+    "notions": [
+      {
+        "name": "age_at_repr",
+        "title": "Age as representative",
+        "order": 4
+      },
+      {
+        "name": "id",
+        "title": "ID",
+        "order": 12
+      },
+      {
+        "name": "geboortejaar",
+        "title": "Year of birth",
+        "order": 2
+      },
+      {
+        "name": "functions",
+        "title": "Functions",
+        "order": 7
+      },
+      {
+        "name": "h_life",
+        "title": "Hypothetical life span",
+        "order": 5
+      },
+      {
+        "name": "sg",
+        "title": "SG",
+        "order": 11
+      },
+      {
+        "name": "p_interval",
+        "title": "Interval",
+        "order": 10
+      },
+      {
+        "name": "name",
+        "title": "Name",
+        "order": 1
+      },
+      {
+        "name": "tim_id",
+        "title": "Timbuctoo-ID",
+        "order": 13
+      },
+      {
+        "name": "colleges",
+        "title": "Colleges",
+        "order": 8
+      },
+      {
+        "name": "sterfjaar",
+        "title": "Year of death",
+        "order": 3
+      },
+      {
+        "name": "period",
+        "title": "Period",
+        "order": 9
+      },
+      {
+        "name": "was_gedeputeerde",
+        "title": "Was delegate",
+        "order": 6
+      }
+    ]
+  },
+  "search": {
+    "collection": "abbreviated_delegates",
+    "result_fields": "name geboortejaar sterfjaar functions",
+    "result_label": "name; (;geboortejaar; - ;sterfjaar;)#functions",
+    "order": "name"
+  },
+  "doc_name": "abbreviated_delegates"
+}

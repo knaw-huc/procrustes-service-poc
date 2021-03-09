@@ -1,0 +1,65 @@
+{
+  "dataset_id": "u33707283d426f900d4d33707283d426f900d4d0d__delegates",
+  "prefix": "http___example_org_datasets_u33707283d426f900d4d33707283d426f900d4d0d_delegates_rawData_5d1240e1_6b39_44b7_920b_272d00e2e66b_delegates_csv_",
+  "collection_prefix": "collections_",
+  "notion_prefix": "props_",
+  "entity": {
+    "name": "1List",
+    "collection": "1",
+    "title": "delegates",
+    "notions": [
+      {
+        "name": "was_gedeputeerde",
+        "title": "Was delegate",
+        "order": 5
+      },
+      {
+        "name": "sterfjaar",
+        "title": "Year of death",
+        "order": 3
+      },
+      {
+        "name": "hypothetical_life_from",
+        "title": "Hypothetical life from",
+        "order": 4
+      },
+      {
+        "name": "tim_id",
+        "title": "Timbuctoo ID",
+        "order": 9
+      },
+      {
+        "name": "geboortejaar",
+        "title": "Year of birth",
+        "order": 2
+      },
+      {
+        "name": "period_active_to",
+        "title": "Period active to",
+        "order": 6
+      },
+      {
+        "name": "id",
+        "title": "ID",
+        "order": 8
+      },
+      {
+        "name": "name",
+        "title": "Name",
+        "order": 1
+      },
+      {
+        "name": "colleges",
+        "title": "Colleges",
+        "order": 7
+      }
+    ]
+  },
+  "search": {
+    "collection": "abbreviated_delegates",
+    "result_fields": "name geboortejaar sterfjaar colleges",
+    "result_label": "name; (;geboortejaar; - ;sterfjaar;)#colleges",
+    "order": "name"
+  },
+  "doc_name": "delegates"
+}
