@@ -91,7 +91,7 @@ switch ($page) {
                     }
                     break;
                 case "browse":
-                    if (isset($segments[4]) && isset($segments[5]) && is_numeric($segments[5])) {
+                    if (isset($segments[4]) && isset($segments[5])) {
                         browse($segments[4], $segments[5]);
                     } else {
                         throw_error();

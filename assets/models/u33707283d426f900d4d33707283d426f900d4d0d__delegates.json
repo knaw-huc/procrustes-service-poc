@@ -9,9 +9,14 @@
     "title": "delegates",
     "notions": [
       {
-        "name": "was_gedeputeerde",
-        "title": "Was delegate",
-        "order": 5
+        "name": "name",
+        "title": "Name",
+        "order": 1
+      },
+      {
+        "name": "geboortejaar",
+        "title": "Year of birth",
+        "order": 2
       },
       {
         "name": "sterfjaar",
@@ -24,14 +29,9 @@
         "order": 4
       },
       {
-        "name": "tim_id",
-        "title": "Timbuctoo ID",
-        "order": 9
-      },
-      {
-        "name": "geboortejaar",
-        "title": "Year of birth",
-        "order": 2
+        "name": "was_gedeputeerde",
+        "title": "Was delegate",
+        "order": 5
       },
       {
         "name": "period_active_to",
@@ -39,19 +39,19 @@
         "order": 6
       },
       {
+        "name": "colleges",
+        "title": "Colleges",
+        "order": 7
+      },
+      {
         "name": "id",
         "title": "ID",
         "order": 8
       },
       {
-        "name": "name",
-        "title": "Name",
-        "order": 1
-      },
-      {
-        "name": "colleges",
-        "title": "Colleges",
-        "order": 7
+        "name": "tim_id",
+        "title": "Timbuctoo ID",
+        "order": 9
       }
     ]
   },

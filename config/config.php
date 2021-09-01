@@ -1,5 +1,5 @@
 <?php
-define('BASE_URL', 'http://www.huc.localhost');
+define('BASE_URL', 'http://localhost');
 define('APPATH', dirname(dirname(__FILE__)));
 define("PAGE_LENGTH", 20);
 define ("BROWSE_PAGE_LENGTH", 100);

@@ -1,0 +1,45 @@
+{
+  "dataset_id": "u33707283d426f900d4d33707283d426f900d4d0d__repsessions",
+  "prefix": "http___example_org_datasets_u33707283d426f900d4d33707283d426f900d4d0d_repsessions_rawData_5d1240e1_6b39_44b7_920b_272d00e2e66b_repsessions_csv_",
+  "collection_prefix": "collections_",
+  "notion_prefix": "props_",
+  "entity": {
+    "name": "1List",
+    "collection": "1",
+    "title": "sessions",
+    "notions": [
+      {
+        "name": "zittingsdag_id",
+        "title": "Session ID",
+        "order": 1
+      },
+      {
+        "name": "text",
+        "title": "Text",
+        "order": 2
+      },
+      {
+        "name": "url",
+        "title": "Image",
+        "order": 3
+      },
+      {
+        "name": "inventory_num",
+        "title": "Inventory number",
+        "order": 4
+      },
+      {
+        "name": "spans",
+        "title": "Delegates",
+        "order": 5
+      }
+    ]
+  },
+  "search": {
+    "collection": "sessions",
+    "result_fields": "zittingsdag_id",
+    "result_label": "zittingsdag_id",
+    "order": "zittingsdag_id"
+  },
+  "doc_name": "repsessions"
+}

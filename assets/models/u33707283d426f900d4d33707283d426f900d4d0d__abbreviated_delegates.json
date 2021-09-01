@@ -9,14 +9,9 @@
     "title": "abbreviated_delegates",
     "notions": [
       {
-        "name": "age_at_repr",
-        "title": "Age as representative",
-        "order": 4
-      },
-      {
-        "name": "id",
-        "title": "ID",
-        "order": 12
+        "name": "name",
+        "title": "Name",
+        "order": 1
       },
       {
         "name": "geboortejaar",
@@ -24,14 +19,39 @@
         "order": 2
       },
       {
-        "name": "functions",
-        "title": "Functions",
-        "order": 7
+        "name": "sterfjaar",
+        "title": "Year of death",
+        "order": 3
+      },
+      {
+        "name": "age_at_repr",
+        "title": "Age as representative",
+        "order": 4
       },
       {
         "name": "h_life",
         "title": "Hypothetical life span",
         "order": 5
+      },
+      {
+        "name": "was_gedeputeerde",
+        "title": "Was delegate",
+        "order": 6
+      },
+      {
+        "name": "id",
+        "title": "ID",
+        "order": 12
+      },
+      {
+        "name": "period",
+        "title": "Period",
+        "order": 9
+      },
+      {
+        "name": "functions",
+        "title": "Functions",
+        "order": 7
       },
       {
         "name": "sg",
@@ -44,11 +64,6 @@
         "order": 10
       },
       {
-        "name": "name",
-        "title": "Name",
-        "order": 1
-      },
-      {
         "name": "tim_id",
         "title": "Timbuctoo-ID",
         "order": 13
@@ -57,21 +72,6 @@
         "name": "colleges",
         "title": "Colleges",
         "order": 8
-      },
-      {
-        "name": "sterfjaar",
-        "title": "Year of death",
-        "order": 3
-      },
-      {
-        "name": "period",
-        "title": "Period",
-        "order": 9
-      },
-      {
-        "name": "was_gedeputeerde",
-        "title": "Was delegate",
-        "order": 6
       }
     ]
   },

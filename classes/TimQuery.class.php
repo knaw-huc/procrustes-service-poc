@@ -364,7 +364,7 @@ class Timquery
         $vars = "{\"uri\": \"$uri\", \"entity\": {\"replacements\": {". implode(",", $valueList) ."}}}";
         $str = '{"query": "%s", "variables": %s}';
         $json = sprintf($str, $query, $vars);
-        error_log($json);
+        //error_log($json);
         return $this->set_graphql_data($json);
     }
 

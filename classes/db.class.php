@@ -303,7 +303,7 @@ class db
     function elastic($json_struc)
     {
         $options = array('Content-type: application/json', 'Content-Length: ' . strlen($json_struc));
-        error_log($json_struc);
+        //error_log($json_struc);
         $ch = curl_init(ELASTIC_HOST);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $options);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");

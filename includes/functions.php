@@ -19,10 +19,10 @@ function detail($base)
     $query = "{\"query\": {\"match\": {\"uri.keyword\": \"$uri\"}}}";
     $result = elastic($query, $struc["entity"]["title"]);
     $item = $result["hits"]["hits"][0]["_source"];
-    send_json(structureDetailData($item, $struc["entity"]["notions"], $collection));
+    send_json(structureDetailData($item, $struc["entity"]["notions"], $collection, $struc["dataset_id"]));
 }
 
-function structureDetailData($item, $notions, $collection) {
+function structureDetailData($item, $notions, $collection, $searchIndex) {
     $retArray = array();
     foreach ($notions as $notion) {
         $buffer = array();
@@ -32,20 +32,85 @@ function structureDetailData($item, $notions, $collection) {
     }
     $retArray["uri"] = $item["uri"];
     $retArray["collection"] = $collection;
+    if ($searchIndex == "u33707283d426f900d4d33707283d426f900d4d0d__repsessions") {
+        $retArray["see_also"] = getLinkedDelegates($item["spans"]);
+    } else {
+        $retArray["see_also"] = getLinkedItems($item["id"], $searchIndex);
+    }
+
     return $retArray;
 }
 
-function fillFieldValue($str) {
-    if (is_null($str) || strlen($str) == 0) {
-        return "-";
-    } else {
-        return ($str);
+function getLinkedDelegates($list) {
+    $retArray = array();
+    $ids = array();
+    foreach ($list as $el) {
+       $ids[] = $el["delegate_id"];
     }
+    $ids = array_unique($ids, SORT_NUMERIC);
+    foreach ($ids as $id) {
+        $buffer = getLinkedItems($id, "dummy");
+        foreach ($buffer as $delegate) {
+            $retArray[] = $delegate;
+        }
+    }
+    return $retArray;
+}
+
+function getLinkedItems($id, $collection) {
+    $retArray = array();
+    $collections = array(
+        "u33707283d426f900d4d33707283d426f900d4d0d__abbreviated_delegates",
+        "u33707283d426f900d4d33707283d426f900d4d0d__delegates"
+    );
+    foreach ($collections as $coll) {
+        if ($coll !== $collection) {
+            $buffer = getLinkedItem($id, $coll);
+            if ($buffer["index"] !== "") {
+                $retArray[] = $buffer;
+            }
+        }
+    }
+    return $retArray;
+}
+
+function getLinkedItem($id, $coll) {
+    $json = file_get_contents(MODEL_DIR . $coll. ".json");
+    $struc = json_decode($json, true);
+    $query = "{\"query\": {\"bool\": {\"must\": [{\"match\": {\"id\": $id }}]}}}";
+    $result = elastic($query, $struc["entity"]["title"]);
+    if ($result["hits"]["total"]["value"] === 0) {
+        return array("head" => "", "body" => "", "uri" => "", "index" => "");
+    } else {
+        $entity = $result["hits"]["hits"][0]["_source"];
+        $retArr = processResultItem($entity, $struc);
+        $retArr["index"] = $struc["dataset_id"];
+        return $retArr;
+     }
+}
+
+function fillFieldValue($str) {
+    $retArray = array();
+    if (is_array($str)) {
+        foreach ($str as $el) {
+            $retArray[] = $el["delegate_name"];
+        }
+        sort($retArray);
+        $retArray = array_unique($retArray);
+        return implode(", ", $retArray);
+    } else {
+        if (is_null($str) || strlen($str) == 0) {
+            return "-";
+        } else {
+            return ($str);
+        }
+    }
+
 }
 
 function elastic($json_struc, $collection)
 {
-    //error_log($json_struc);
+    //error_log(ELASTIC_HOST . $collection . "/_search?");
     $options = array('Content-type: application/json', 'Content-Length: ' . strlen($json_struc));
     $ch = curl_init(ELASTIC_HOST . $collection . "/_search?");
     curl_setopt($ch, CURLOPT_HTTPHEADER, $options);
@@ -79,14 +144,20 @@ function download($codedStruc)
     }
 }
 
-function browse($ds_id, $page)
+function browse($ds_id, $struc)
 {
+    $queryStruc = json_decode(base64_decode($struc), true);
     $json = file_get_contents(MODEL_DIR . $ds_id . ".json");
     $struc = json_decode($json, true);
-    $query = createQuery($struc, $page);
+    $searchText = trim($queryStruc["text"]);
+    if (strlen($searchText)) {
+        $query = createSearchQuery($struc, $queryStruc["page"], $searchText);
+    } else {
+        $query = createQuery($struc, $queryStruc["page"]);
+    }
     $collection = $struc["entity"]["title"];
     $result = elastic($query, $collection);
-    send_json(unifyResult($result, $struc, $page));
+    send_json(unifyResult($result, $struc, $queryStruc["page"]));
 }
 
 function unifyResult($result, $struc, $page)
@@ -139,9 +210,11 @@ function processItemHead($item, $list, $searchData) {
 
 function processItemBody($item, $list) {
     $retArray = array();
-    $fields = explode(";", $list);
-    foreach ($fields as $field) {
-        $retArray[] = $item[$field];
+    if (strlen($list)) {
+        $fields = explode(";", $list);
+        foreach ($fields as $field) {
+            $retArray[] = $item[$field];
+        }
     }
     return $retArray;
 }
@@ -157,6 +230,16 @@ function createQuery($struc, $page)
     $page_length = BROWSE_PAGE_LENGTH;
     $queryFields = getFields($fields);
     $retValue = "{ \"query\": {\"match_all\": {}}, \"size\": $page_length, \"from\": $from, \"_source\": [\"id\", $queryFields, \"uri\"],\"sort\": [{ \"$order.keyword\": {\"order\":\"asc\"}}]}";
+    return $retValue;
+}
+
+function createSearchQuery($struc, $page, $text) {
+    $from = ($page-1) * BROWSE_PAGE_LENGTH;
+    $order = $struc["search"]["order"];
+    $fields = $struc["search"]["result_fields"];
+    $page_length = BROWSE_PAGE_LENGTH;
+    $queryFields = getFields($fields);
+    $retValue = "{ \"query\": {\"multi_match\": {\"query\": \"$text\", \"fields\": []}}, \"size\": $page_length, \"from\": $from, \"_source\": [\"id\", $queryFields, \"uri\"],\"sort\": [{ \"$order.keyword\": {\"order\":\"asc\"}}]}";
     return $retValue;
 }
 
